@@ -1,4 +1,5 @@
 const apiKey = "b8617d799893b29b9cf667a92dcb611e";
+const defaultValue = "----";
 
 const searchInput = document.querySelector(".search-bar input");
 const searchBtn = document.querySelector(".search-bar button");
@@ -14,10 +15,11 @@ function getWeather() {
     fetch(url)
         .then((res) => res.json())
         .then((data) => {
-            temperature.innerHTML = data.main.temp || "Không có dữ liệu";
-            city.innerHTML = data.name || "Không có dữ liệu";
-            humidity.innerHTML = data.main.humidity || "Không có dữ liệu";
-            windSpeed.innerHTML = data.wind.speed || "Không có dữ liệu";
+            temperature.innerHTML = data.main.temp || defaultValue;
+            city.innerHTML = data.name || defaultValue;
+            humidity.innerHTML = data.main.humidity || defaultValue;
+            let adjustedWindSpeed = Math.round(data.wind.speed * 3.6, 0);
+            windSpeed.innerHTML = adjustedWindSpeed || defaultValue;
         })
         .catch((error) => {
             console.log("Đã xảy ra lỗi:", error);
